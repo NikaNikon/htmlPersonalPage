@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script> 
+  <style>
+  body
+  {
+  font-family: Arial, Verdana, sans-serif;
+    font-size: 90%;
+    color: #000000;
+      background: #97D7FC ;
+      padding:10px;
+      border: 6px ridge gray;
+      -moz-border-radius: 10px;  
+    -webkit-border-radius: 10px;
+  }
+    img{
+      -moz-border-radius: 10px;  
+      -webkit-border-radius: 10px;}
+  h1
+  {
+ color: #700F0F;
+ border: 4px double black;
+ font-size: 40px;
+ text-align: center;
+ padding: 5px;
+  }
+  h2
+  {
+ font-size: 30px;
+ color:rgb(51,51,51);
+ font-family: Verdana, Arial, sans-serif;
+ text-decoration: underline;
+ }
+ .violet_table
+ {
+ background-color: #F3C7FC ;
+ }
+ .yellow_table
+ {
+ background-color: #FCFAC7 ;
+ }
+ a:hover
+ {
+  background-color: whitesmoke;
+      padding: 10px;
+      color: white;
+ }
+ a
+ {
+ cursor: pointer;
+      font-size: 15px;
+ }
+ p
+ {
+ font-size: 30px;
+ text-align: center;
+ font-family: Arial, Verdana, sans-serif;
+ }
+
+ #content
+ {
+ width: 900px;
+ }
+ #menu
+ {
+ width: 900px;
+ height: 30px;
+ font-style: italic;
+ }
+ 
+    @media print
+    {
+      body
+      {
+        font-family: Arial, Verdana, sans-serif;
+     font-size: 80%;
+     color: #000000;
+    background: white ;
+       padding:10px;
+      }
+        
+    }
+    
+    
+    .hover_Row { background-color: yellow; }
+  .clicked_Row { background-color: lightgreen; }
+    
+    
+ </style>
+    <meta charset="UTF-8">
+  
+<script type="text/javascript">
+function highlight_Table_Rows(table_Id, hover_Class, click_Class, multiple) {
+var table = document.getElementById(table_Id);
+if (typeof multiple == 'undefined') multiple = true;
+
+if (hover_Class) {
+ var hover_Class_Reg = new RegExp("\\b"+hover_Class+"\\b");
+ table.onmouseover = table.onmouseout = function(e) {
+  if (!e) e = window.event;
+  var elem = e.target || e.srcElement;
+  while (!elem.tagName || !elem.tagName.match(/td|th|table/i))
+   elem = elem.parentNode;
+
+  if (elem.parentNode.tagName == 'TR' &&
+   elem.parentNode.parentNode.tagName == 'TBODY') {
+   var row = elem.parentNode;
+   if (!row.getAttribute('clicked_Row'))
+   row.className = e.type=="mouseover"?row.className +
+   " " + hover_Class:row.className.replace(hover_Class_Reg," ");
+  }
+ };
+}
+
+if (click_Class) table.onclick = function(e) {
+ if (!e) e = window.event;
+ var elem = e.target || e.srcElement;
+ while (!elem.tagName || !elem.tagName.match(/td|th|table/i))
+  elem = elem.parentNode;
+
+ if (elem.parentNode.tagName == 'TR' &&
+  elem.parentNode.parentNode.tagName == 'TBODY') {
+  var click_Class_Reg = new RegExp("\\b"+click_Class+"\\b");
+  var row = elem.parentNode;
+
+  if (row.getAttribute('clicked_Row')) {
+   row.removeAttribute('clicked_Row');
+   row.className = row.className.replace(click_Class_Reg, "");
+   row.className += " "+hover_Class;
+  }
+  else {
+   if (hover_Class) row.className = row.className.replace(hover_Class_Reg, "");
+   row.className += " "+click_Class;
+   row.setAttribute('clicked_Row', true);
+
+  if (!multiple) {
+   var lastRowI = table.getAttribute("last_Clicked_Row");
+   if (lastRowI!==null && lastRowI!=='' && row.sectionRowIndex!=lastRowI) {
+    var lastRow = table.tBodies[0].rows[lastRowI];
+    lastRow.className = lastRow.className.replace(click_Class_Reg, "");
+    lastRow.removeAttribute('clicked_Row');
+   }
+  }
+  table.setAttribute("last_Clicked_Row", row.sectionRowIndex);
+  }
+ }
+};
+}
+  
+  function keyDown(e){ 
+ if(e.keyCode == 16)
+  shift = true;
+else if(e.keyCode == 52 && shift)
+  location.href="#four";
+
+}
+    
+    function keyUp(e){
+ if(e.keyCode == 16)
+  shift = false;
+}
+  
+</script>
+  
+  
+</head>
+
+  
+<body onkeydown="keyDown(event)" onkeyup="keyUp(event)">
+  
+  
+<div id = "menu">
+
+  
+  
+<br>
+ 
+ </div>
+ 
+ <div id = "content">
+ <h1> Veronika Litovchenko personal page </h1>
+   <center> <img src="https://sites.google.com/a/nure.ua/litovchenkoveronika07/home/10.jpg" style="width:60%; border:2px inset gray"> </center>
+<br>
+   <center>
+    <audio controls>
+      <source src="https://sites.google.com/a/nure.ua/demo/styles/Beyonce%20-%207%2011.mp3" type="audio/mpeg">
+     </audio>
+     </center>
+   
+<h2 id="smth1"> 1. Personal data. </h2>
+   <div id="wow1" style="display:none">
+Name:     Veronika Litovchenko; 
+ <br>
+ Gender:    Female 
+<br>
+ Date of birth:   July 7, 1997 
+<br>
+ Place of birth:  Rubizhne, Ukraine 
+<br>
+ Civil status:   Single
+<br>
+ Address:    Tselinogradskaya 36, 521, Kharkov, Ukraine
+<br>
+ Phone:     +380990372226
+<br>
+ Contacts:    07nikon@gmail.com, vk.com/id104204491
+   </div>
+<hr>
+   
+ 
+
+ <h2 id="smth2"> 2. Language skills. </h2>
+   <div id="wow2" style="display:none">
+ <table id="color_table" border="2" width="280">
+<tbody>
+<tr>
+<th align="center"> Language </th>
+<th align="center"> Level </th>
+</tr>
+
+<tr class = "yellow_table"> 
+<td align="center"> Russian </td>
+<td align="center"> Native language </td>
+ </tr>
+ 
+<tr class = "violet_table"> 
+<td align="center"> Ukrainian </td> 
+<td align="center"> Native language </td>
+ </tr>
+ 
+<tr class = "yellow_table"> 
+<td align="center"> English </td> 
+<td align="center"> Intermediate </td>
+ </tr>
+ 
+<tr class = "violet_table"> 
+<td align="center"> German </td> 
+<td align="center"> Beginner </td>
+ </tr>
+ 
+</tbody>
+</table>
+   </div>
+<hr>
+
+
+<h2 id="smth3"> 3. Studying. </h2>
+   <div id="wow3" style="display:none">
+2002 - 2014 10th shool, Rubizhne, Lugansk region, Ukraine
+<br>
+ 2014 - 2018 Kharkiv national university of radioelectronics, Kharkiv, Ukraine
+   </div>
+<hr>
+
+
+<h2 id="smth4"> 4. Hobbies activities and arts. </h2>
+   <div id="wow4" style="display:none">
+Dancing, tattoos, dogs, moovies, music.
+   </div>
+<hr>
+   
+<script>
+   $("#smth1").on("click", function() {
+     $("#wow1").slideToggle();
+    });
+  $("#smth2").on("click", function() {
+     $("#wow2").slideToggle();
+    });
+  $("#smth3").on("click", function() {
+     $("#wow3").slideToggle();
+    });
+  $("#smth4").on("click", function() {
+     $("#wow4").slideToggle();
+    });
+
+ highlight_Table_Rows("color_table", "hover_Row", "clicked_Row");
+</script>
+   
+   
+
+ </div>
+  <h3 id = "four"> Hot key stuff </h3>
+  <a href = "https://sites.google.com/a/nure.ua/demo/styles" target = "_self"> files </a>
+  <a href = "https://sites.google.com/a/nure.ua/demo/test" target = "_self"> tester </a>
+ </body>
+ </html>
